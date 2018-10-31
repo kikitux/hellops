@@ -1,10 +1,13 @@
 language: generic
 dist: xenial
 sudo: required
-before_install:
+install:
   - wget -q -P /tmp https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
   - sudo dpkg -i /tmp/packages-microsoft-prod.deb
+  - sudo rm /tmp/packages-microsoft-prod.deb
+  - export DEBIAN_FRONTEND=noninteractive
   - sudo apt-get update
   - sudo apt-get install -y powershell
+  - sudo apt-get clean
 script:
   - bash ./tests/test_hello.sh
